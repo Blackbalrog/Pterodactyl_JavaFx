@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13' //JavaFx Plugin
+    id 'com.github.johnrengelman.shadow' version '7.1.0' //ShadowJar to include all libraries into the jar
+}
+
+// See gradle.properties to change these two
+group "${project_group}" 
+version "${project_version}"
+
+java {
+    // Java Compatibility
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
+// Compile using UTF-8
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+compileJava {
+    options.encoding = "UTF-8"
+}
+
+javafx {
+    version = '20' // JavaFx Version
+    modules = ['javafx.controls', 'javafx.swing'] // Modules
+}
+
+repositories { // Repo
+    mavenCentral() // Maven Central
+}
+
+dependencies { // Project Dependencies
+    // Logging
+    implementation "ch.qos.logback:logback-classic:1.4.7"
+    implementation "org.slf4j:slf4j-api:2.0.7"
+}
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': "${project_main_class}" // Jar main class
+    }
+    archiveClassifier.set('') // Remove the 'all' classifier
+    mergeServiceFiles()
+}
+
+// Only build shadowJar
+build.dependsOn(shadowJar)
+jar.enabled = false
