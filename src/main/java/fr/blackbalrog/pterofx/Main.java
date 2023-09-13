@@ -1,4 +1,6 @@
 package fr.blackbalrog.pterofx;
 
-public class Main {
+public class Main
+{
+	
 }

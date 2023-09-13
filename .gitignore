@@ -43,3 +43,4 @@ replay_*.log
 
 # Ignore Gradle build output directory
 build
+/bin1/
